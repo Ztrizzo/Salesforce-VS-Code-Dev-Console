@@ -1,13 +1,30 @@
 import * as React from 'react';
 import { messageHandler } from '@estruyf/vscode/dist/client';
 import "./styles.css";
+import { OrgSelector, IAppProps as orgSelectorProps, IOrg } from './components/orgSelector';
 
 export interface IAppProps {}
 
 export const App: React.FunctionComponent<IAppProps> = ({ }: React.PropsWithChildren<IAppProps>) => {
   const [message, setMessage] = React.useState<string>("");
   const [error, setError] = React.useState<string>("");
-  
+  const [orgList, setOrgList] = React.useState<IOrg[]>([]);
+
+  React.useEffect(() => {
+    const getCredentials = async () => {
+      const credentials = await messageHandler.request<string>('GET_DATA');
+      const orgs :IOrg[] = [];
+      for (const org of JSON.parse(credentials)) {
+        const orgInt :IOrg = {
+          orgId: org.orgId,
+          username: org.username
+        };
+        orgs.push(orgInt);
+      }
+      setOrgList(orgs);
+    };
+    getCredentials();
+  }, []);
 
   const sendMessage = () => {
     messageHandler.send('POST_DATA', { msg: 'Hello from the webview' });
@@ -32,6 +49,7 @@ export const App: React.FunctionComponent<IAppProps> = ({ }: React.PropsWithChil
   return (
     <div className='app'>
       <h1>Hello from the React Webview Starter</h1>
+      <OrgSelector orgList={orgList} />
 
       <div className='app__actions'>
         <button onClick={sendMessage}>
