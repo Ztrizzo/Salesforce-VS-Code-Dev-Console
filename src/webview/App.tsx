@@ -7,6 +7,7 @@ export interface IAppProps {}
 export const App: React.FunctionComponent<IAppProps> = ({ }: React.PropsWithChildren<IAppProps>) => {
   const [message, setMessage] = React.useState<string>("");
   const [error, setError] = React.useState<string>("");
+  
 
   const sendMessage = () => {
     messageHandler.send('POST_DATA', { msg: 'Hello from the webview' });

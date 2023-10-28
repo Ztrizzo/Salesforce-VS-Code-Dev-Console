@@ -4,6 +4,7 @@ import { join } from 'path';
 import * as vscode from 'vscode';
 import { ExtensionContext, ExtensionMode, Uri, Webview } from 'vscode';
 import { MessageHandlerData } from '@estruyf/vscode';
+const getOrgCredentials = require('../extension/sfdxCredentials').getOrgCredentials;
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -18,17 +19,17 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 		);
 
-		panel.webview.onDidReceiveMessage(message => {
+		panel.webview.onDidReceiveMessage(async (message) => {
 			const { command, requestId, payload } = message;
 		
 			if (command === "GET_DATA") {
 				// Do something with the payload
-		
+				const orgCredentials = await getOrgCredentials();
 				// Send a response back to the webview
 				panel.webview.postMessage({
 					command,
 					requestId, // The requestId is used to identify the response
-					payload: `Hello from the extension!`
+					payload: JSON.stringify(orgCredentials)
 				} as MessageHandlerData<string>);
 			} else if (command === "GET_DATA_ERROR" ) {
 				panel.webview.postMessage({
