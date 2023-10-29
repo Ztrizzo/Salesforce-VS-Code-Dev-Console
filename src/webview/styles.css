@@ -16,3 +16,32 @@ h1 {
 .app__error {
   color: var(--vscode-editorError-foreground);
 }
+
+.tabset{
+  display:flex;
+  justify-content: stretch;
+  padding-bottom: 3rem;
+}
+
+.tabset > *{
+  padding: 1rem 2rem;
+  border: 1px solid white;
+}
+
+.tabset > *:hover{
+  background: rgb(70, 70, 70);
+  cursor: pointer;
+}
+
+.tabset > *.selected{
+  background: rgb(110, 110, 110);
+}
+
+.page-container{
+  display:flex;
+  flex-direction:column
+}
+
+textarea{
+  height: 40vh;
+}

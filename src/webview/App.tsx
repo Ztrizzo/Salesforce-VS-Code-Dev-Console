@@ -2,6 +2,9 @@ import * as React from 'react';
 import { messageHandler } from '@estruyf/vscode/dist/client';
 import "./styles.css";
 import { OrgSelector, IAppProps as orgSelectorProps, IOrg } from './components/orgSelector';
+import { Tabset } from './components/Tabset';
+import { Tab, TabProps } from './components/Tab';
+import { QueryEditor } from './pages/QueryEditor';
 
 export interface IAppProps {}
 
@@ -50,6 +53,15 @@ export const App: React.FunctionComponent<IAppProps> = ({ }: React.PropsWithChil
     <div className='app'>
       <h1>Hello from the React Webview Starter</h1>
       <OrgSelector orgList={orgList} />
+
+      <Tabset>
+        <Tab label='Query'>
+          <QueryEditor/>
+        </Tab>
+        <Tab label='Tab 2'>Contents of Tab 2</Tab>
+        <Tab label='Tab 3'>Contents of Tab 3</Tab>
+      </Tabset>
+
 
       <div className='app__actions'>
         <button onClick={sendMessage}>
