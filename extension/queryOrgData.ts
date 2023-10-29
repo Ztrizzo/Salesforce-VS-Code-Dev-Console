@@ -1,3 +1,0 @@
-const executeQuery = (queryString :string) => {
-
-}

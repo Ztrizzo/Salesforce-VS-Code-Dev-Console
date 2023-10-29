@@ -5,6 +5,7 @@ import * as vscode from 'vscode';
 import { ExtensionContext, ExtensionMode, Uri, Webview } from 'vscode';
 import { MessageHandlerData } from '@estruyf/vscode';
 const getOrgCredentials = require('../extension/sfdxCredentials').getOrgCredentials;
+const queryOrgData = require('../extension/queryOrgData');
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -39,6 +40,17 @@ export function activate(context: vscode.ExtensionContext) {
 				} as MessageHandlerData<string>);
 			} else if (command === "POST_DATA") {
 				vscode.window.showInformationMessage(`Received data from the webview: ${payload.msg}`);
+			} else if (command === "QUERY"){
+				const { query, targetOrg } = payload;
+				const queryResult = await queryOrgData.executeQuery(
+					query,
+					targetOrg
+				);
+				panel.webview.postMessage({
+					command,
+					requestId,
+					payload: JSON.stringify(queryResult)
+				});
 			}
 		}, undefined, context.subscriptions);
 
