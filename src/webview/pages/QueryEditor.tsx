@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { messageHandler } from '@estruyf/vscode/dist/client';
+import 'react-data-grid/lib/styles.css';
+
 let DataGrid :any;
 import('react-data-grid').then(module => {
   DataGrid = module.default || module;
