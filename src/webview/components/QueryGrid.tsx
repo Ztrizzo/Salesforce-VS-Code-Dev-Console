@@ -61,7 +61,14 @@ export const QueryGrid: React.FunctionComponent<QueryGridProps> = ({ csvString }
 
   return (
     <>
-      <DataGrid columns={columns} rows={rows}/>
+      <DataGrid 
+        defaultColumnOptions={{
+          sortable: true,
+          resizable: true
+        }}
+        columns={columns} 
+        rows={rows}
+      />
     </>
   );
 };
