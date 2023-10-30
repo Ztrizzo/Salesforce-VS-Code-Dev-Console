@@ -23,6 +23,7 @@ export const Tabset: React.FunctionComponent<TabSetProps> = ({ children } :TabSe
           }
           return (
             <div 
+              key={index}
               className={selectedTab === index ? 'selected' : ''}
               onClick={() => handleClick(index)}
               >

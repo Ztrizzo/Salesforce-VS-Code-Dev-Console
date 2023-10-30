@@ -12,6 +12,7 @@ export const App: React.FunctionComponent<IAppProps> = ({ }: React.PropsWithChil
   const [message, setMessage] = React.useState<string>("");
   const [error, setError] = React.useState<string>("");
   const [orgList, setOrgList] = React.useState<IOrg[]>([]);
+  const [targetOrg, setTargetOrg] = React.useState<string>("");
 
   React.useEffect(() => {
     const getCredentials = async () => {
@@ -29,53 +30,47 @@ export const App: React.FunctionComponent<IAppProps> = ({ }: React.PropsWithChil
     getCredentials();
   }, []);
 
-  const sendMessage = () => {
-    messageHandler.send('POST_DATA', { msg: 'Hello from the webview' });
-  };
+  // const sendMessage = () => {
+  //   messageHandler.send('POST_DATA', { msg: 'Hello from the webview' });
+  // };
 
-  const requestData = () => {
-    messageHandler.request<string>('GET_DATA').then((msg) => {
-      setMessage(msg);
-    });
-  };
+  // const requestData = () => {
+  //   messageHandler.request<string>('GET_DATA').then((msg) => {
+  //     setMessage(msg);
+  //   });
+  // };
 
-  const requestWithErrorData = () => {
-    messageHandler.request<string>('GET_DATA_ERROR')
-    .then((msg) => {
-      setMessage(msg);
-    })
-    .catch((err) => {
-      setError(err);
-    });
-  };
+  // const requestWithErrorData = () => {
+  //   messageHandler.request<string>('GET_DATA_ERROR')
+  //   .then((msg) => {
+  //     setMessage(msg);
+  //   })
+  //   .catch((err) => {
+  //     setError(err);
+  //   });
+  // };
+
+  const handleTargetOrgChange = (newTargetOrg :string) => {
+    setTargetOrg(newTargetOrg);
+  }
 
   return (
     <div className='app'>
-      <h1>Hello from the React Webview Starter</h1>
-      <OrgSelector orgList={orgList} />
+      <h1>Salesforce VS Code Dev Console</h1>
+      <OrgSelector 
+        orgList={orgList}
+        handleTargetOrgChange={handleTargetOrgChange} 
+      />
+
+      Current Selected Org: {targetOrg}
 
       <Tabset>
         <Tab label='Query'>
-          <QueryEditor/>
+          <QueryEditor targetOrg={targetOrg}/>
         </Tab>
         <Tab label='Tab 2'>Contents of Tab 2</Tab>
         <Tab label='Tab 3'>Contents of Tab 3</Tab>
       </Tabset>
-
-
-      <div className='app__actions'>
-        <button onClick={sendMessage}>
-          Send message to extension
-        </button>
-
-        <button onClick={requestData}>
-          Get data from extension
-        </button>
-
-        <button onClick={requestWithErrorData}>
-          Get data with error
-        </button>
-      </div>
 
       {message && <p><strong>Message from the extension</strong>: {message}</p>}
 

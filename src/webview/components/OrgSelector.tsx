@@ -6,16 +6,22 @@ export interface IOrg {
 }
 
 export interface IAppProps {
-  orgList: IOrg[];
+  orgList :IOrg[];
+  handleTargetOrgChange :Function 
 }
 
-export const OrgSelector: React.FunctionComponent<IAppProps> = ({ orgList }) => {
+export const OrgSelector: React.FunctionComponent<IAppProps> = ({ orgList, handleTargetOrgChange } :IAppProps) => {
+
+  const handleChange = (event :React.ChangeEvent<HTMLSelectElement>) => {
+    const newOrg = event.target.value;
+    handleTargetOrgChange(newOrg);
+  };
 
   return (
     <>
-      <select>
-        {orgList.map((org) => (
-          <option key={org.orgId} value={org.orgId}>{org.username}</option>
+      <select onChange={(handleChange)}>
+        {orgList.map((org, index) => (
+          <option key={org.username + index} value={org.username}>{org.username}</option>
         ))}
       </select>
     </>
