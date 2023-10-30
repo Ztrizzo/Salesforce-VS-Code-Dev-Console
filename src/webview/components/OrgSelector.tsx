@@ -17,7 +17,7 @@ export interface IAppProps {
   handleTargetOrgChange :Function 
 }
 
-interface SingleValue {
+interface Option {
   value?: string;
   label?: string;
 }
@@ -59,9 +59,9 @@ const customStyles = {
 };
 
 export const OrgSelector: React.FunctionComponent<IAppProps> = ({ orgList, handleTargetOrgChange } :IAppProps) => {
-  const [currentOrg, setCurrentOrg] = React.useState<PropsValue<SingleValue>>({value: undefined, label:undefined});
+  const [currentOrg, setCurrentOrg] = React.useState<PropsValue<Option>>();
 
-  const handleChange = (option: SingleValue | null, actionMeta: ActionMeta<SingleValue>) => {
+  const handleChange = (option: Option | null, actionMeta: ActionMeta<Option>) => {
 
     setCurrentOrg(option);
     handleTargetOrgChange(option?.value);
@@ -78,17 +78,18 @@ export const OrgSelector: React.FunctionComponent<IAppProps> = ({ orgList, handl
     return {
       value: org.username,
       label: buildUsername(org.username, org.alias)
-    }
-  })
-
+    };
+  });
   return (
     <>
+      <div>{JSON.stringify(currentOrg)}</div>
       <section className="select">
         <Select
           styles={customStyles}
           options={options}
           onChange={handleChange}
           value={currentOrg}
+          placeholder="Please Select a Target Org..."
         ></Select>
       </section>
     </>

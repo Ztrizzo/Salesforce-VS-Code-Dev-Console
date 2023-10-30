@@ -42,15 +42,23 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.window.showInformationMessage(`Received data from the webview: ${payload.msg}`);
 			} else if (command === "QUERY"){
 				const { query, targetOrg } = payload;
-				const queryResult = await queryOrgData.executeQuery(
-					query,
-					targetOrg
-				);
-				panel.webview.postMessage({
-					command,
-					requestId,
-					payload: JSON.stringify(queryResult)
+				try{
+					const queryResult = await queryOrgData.executeQuery(
+						query,
+						targetOrg
+					);
+					panel.webview.postMessage({
+						command,
+						requestId,
+						payload: JSON.stringify(queryResult)
+					});
+				} catch(error :any){
+					panel.webview.postMessage({
+						command,
+						requestId, // The requestId is used to identify the response
+						error: error.message
 				});
+				}
 			}
 		}, undefined, context.subscriptions);
 

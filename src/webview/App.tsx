@@ -5,6 +5,7 @@ import { OrgSelector, IAppProps as orgSelectorProps, IOrg } from './components/o
 import { Tabset } from './components/Tabset';
 import { Tab, TabProps } from './components/Tab';
 import { QueryEditor } from './pages/QueryEditor';
+import { Spinner } from './components/Spinner';
 
 export interface IAppProps {}
 
@@ -64,8 +65,6 @@ export const App: React.FunctionComponent<IAppProps> = ({ }: React.PropsWithChil
         orgList={orgList}
         handleTargetOrgChange={handleTargetOrgChange} 
       />
-
-      Current Selected Org: {targetOrg}
 
       <Tabset>
         <Tab label='Query'>

@@ -1,6 +1,8 @@
 
 h1 {
   font-family: var(--vscode-editor-font-family);
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .app {
@@ -48,4 +50,47 @@ textarea{
 
 .select > *{
   background: var(--vscode-input-background);
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 7vw;
+  height: 7vw;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+button{
+  color: var(--vscode-button-foreground);
+  background-color: var(--vscode-button-background);
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--vscode-button-hoverBackground);
+
+}
+
+.error-box{
+  background-color: black;
+  width: -webkit-fill-available;
+  font-family: 'Consolas', 'Courier New', monospace;
+  color: #D8000C;
+  padding: 10px;
+  border: 1px solid rgb(173, 159, 159);
+  border-radius: 5px;
+  font-weight: 700;
+
 }
