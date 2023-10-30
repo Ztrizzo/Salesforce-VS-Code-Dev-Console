@@ -3,6 +3,7 @@ import * as React from 'react';
 export interface IOrg {
   orgId: string;
   username: string;
+  alias: string;
 }
 
 export interface IAppProps {
@@ -17,11 +18,18 @@ export const OrgSelector: React.FunctionComponent<IAppProps> = ({ orgList, handl
     handleTargetOrgChange(newOrg);
   };
 
+  const buildUsername = ( username: string, alias?: string ): string => {
+    if(!alias || alias === 'undefined'){
+      return username;
+    }
+    return `${alias} (${username})`;
+  }
+
   return (
     <>
       <select onChange={(handleChange)}>
         {orgList.map((org, index) => (
-          <option key={org.username + index} value={org.username}>{org.username}</option>
+          <option key={index} value={org.username}>{buildUsername(org.username, org.alias)}</option>
         ))}
       </select>
     </>

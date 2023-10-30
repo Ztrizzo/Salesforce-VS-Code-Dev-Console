@@ -18,10 +18,12 @@ export const App: React.FunctionComponent<IAppProps> = ({ }: React.PropsWithChil
     const getCredentials = async () => {
       const credentials = await messageHandler.request<string>('GET_DATA');
       const orgs :IOrg[] = [];
+      console.log(credentials);
       for (const org of JSON.parse(credentials)) {
         const orgInt :IOrg = {
           orgId: org.orgId,
-          username: org.username
+          username: org.username,
+          alias: org.alias
         };
         orgs.push(orgInt);
       }
