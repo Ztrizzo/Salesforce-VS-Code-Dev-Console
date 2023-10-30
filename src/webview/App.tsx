@@ -28,6 +28,7 @@ export const App: React.FunctionComponent<IAppProps> = ({ }: React.PropsWithChil
         orgs.push(orgInt);
       }
       setOrgList(orgs);
+      setTargetOrg(orgs[0].username)
     };
     getCredentials();
   }, []);
