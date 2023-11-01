@@ -82,7 +82,6 @@ export const OrgSelector: React.FunctionComponent<IAppProps> = ({ orgList, handl
   });
   return (
     <>
-      <div>{JSON.stringify(currentOrg)}</div>
       <section className="select">
         <Select
           styles={customStyles}

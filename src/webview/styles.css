@@ -22,12 +22,18 @@ h1 {
 .tabset{
   display:flex;
   justify-content: stretch;
-  padding-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.tabset::after{
+  content:'';
+  display:block;
+  border:1px solid grey;
+  width: 100%;
 }
 
 .tabset > *{
   padding: 1rem 2rem;
-  border: 1px solid white;
 }
 
 .tabset > *:hover{
@@ -37,6 +43,7 @@ h1 {
 
 .tabset > *.selected{
   background: rgb(110, 110, 110);
+  border-bottom: 2px solid white;
 }
 
 .page-container{
@@ -46,6 +53,7 @@ h1 {
 
 textarea{
   height: 40vh;
+  margin-bottom: 1rem;
 }
 
 .select > *{

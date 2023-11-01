@@ -41,7 +41,7 @@ export const QueryEditor: React.FunctionComponent<QueryEditorProps> = ({ targetO
   return (
     <section className="page-container">
       {loading ? <Spinner/> : null}
-      <h1>Enter SOQL Query</h1>
+      <h2>Enter SOQL Query</h2>
       <TextArea
         value={query}
         onChange={handleQueryChange}
