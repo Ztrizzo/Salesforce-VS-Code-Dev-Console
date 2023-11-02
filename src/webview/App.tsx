@@ -14,6 +14,8 @@ export const App: React.FunctionComponent<IAppProps> = ({ }: React.PropsWithChil
   const [error, setError] = React.useState<string>("");
   const [orgList, setOrgList] = React.useState<IOrg[]>([]);
   const [targetOrg, setTargetOrg] = React.useState<string>("");
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [openingTargetOrg, setOpeningTargetOrg] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     const getCredentials = async () => {
@@ -58,14 +60,37 @@ export const App: React.FunctionComponent<IAppProps> = ({ }: React.PropsWithChil
     setTargetOrg(newTargetOrg);
   }
 
+  const openTargetOrg = async () => {
+    try{
+
+      setOpeningTargetOrg(true);
+
+      messageHandler.request<string>('OPEN_ORG', {
+        targetOrg
+      });
+      //Pause for 3 seconds;
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    } catch(error: any){
+      setError(error);
+      console.error(error);
+    } finally{
+      setOpeningTargetOrg(false);
+    }
+  }
+
   return (
     <div className='app'>
+      {loading ? <Spinner/> : null}
       <h1>Salesforce VS Code Dev Console</h1>
-      <OrgSelector 
-        orgList={orgList}
-        handleTargetOrgChange={handleTargetOrgChange} 
-      />
-
+      <div className="org-selector-container">
+        <OrgSelector 
+          orgList={orgList}
+          handleTargetOrgChange={handleTargetOrgChange} 
+        />
+        <button onClick={openTargetOrg} className={openingTargetOrg ? 'disabled' : ""}>
+          {openingTargetOrg ? 'Opening' : "Open this Org"}
+        </button>
+      </div>
       <Tabset>
         <Tab label='Query'>
           <QueryEditor targetOrg={targetOrg}/>

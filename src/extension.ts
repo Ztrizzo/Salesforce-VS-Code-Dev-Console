@@ -6,6 +6,7 @@ import { ExtensionContext, ExtensionMode, Uri, Webview } from 'vscode';
 import { MessageHandlerData } from '@estruyf/vscode';
 const getOrgCredentials = require('../extension/sfdxCredentials').getOrgCredentials;
 const queryOrgData = require('../extension/queryOrgData');
+const { openTargetOrg } = require('../extension/openOrg');
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -59,6 +60,9 @@ export function activate(context: vscode.ExtensionContext) {
 						error: error.message
 				});
 				}
+			} else if (command === "OPEN_ORG"){
+				const { targetOrg } = payload;
+				await openTargetOrg(targetOrg);
 			}
 		}, undefined, context.subscriptions);
 
