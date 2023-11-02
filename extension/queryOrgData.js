@@ -2,7 +2,7 @@ const util = require('util');
 const executeCliCommand = util.promisify(require('child_process').exec);
 
 const executeQuery = async (queryString, targetOrg) => {
-  const cliCommand = `sf data query --query "${queryString}" --target-org "${targetOrg}" --result-format csv`;
+  const cliCommand = `sf data query --query "${queryString}" --target-org "${targetOrg}" --result-format json`;
   try{
     const { stdout } = await executeCliCommand(cliCommand);
     return stdout;

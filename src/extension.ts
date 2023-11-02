@@ -50,7 +50,7 @@ export function activate(context: vscode.ExtensionContext) {
 					panel.webview.postMessage({
 						command,
 						requestId,
-						payload: JSON.stringify(queryResult)
+						payload: JSON.parse(queryResult)
 					});
 				} catch(error :any){
 					panel.webview.postMessage({
