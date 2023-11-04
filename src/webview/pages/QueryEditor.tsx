@@ -11,7 +11,7 @@ export interface QueryEditorProps {
   
 export const QueryEditor: React.FunctionComponent<QueryEditorProps> = ({ targetOrg }) => {
   const [query, setQuery] = React.useState('SELECT Id, Name FROM Contact');
-  const [queryCsvResult, setQueryCsvResult] = React.useState<string>('');
+  const [queryResult, setqueryResult] = React.useState<string>('');
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>();
 
@@ -28,7 +28,7 @@ export const QueryEditor: React.FunctionComponent<QueryEditorProps> = ({ targetO
         query: query
       });
 
-      setQueryCsvResult(queryResult);
+      setqueryResult(queryResult);
       setError(undefined);
     } catch(error :any){
       console.error(error);
@@ -58,7 +58,7 @@ export const QueryEditor: React.FunctionComponent<QueryEditorProps> = ({ targetO
       }
 
       <h1>Query Result</h1>
-      <QueryGrid csvString={queryCsvResult}/>
+      <QueryGrid jsonResult={queryResult}/>
     </section>
   );
 };

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import 'react-data-grid/lib/styles.css';
-import { parse, ParseResult } from 'papaparse';
 
 let DataGrid :any;
 import('react-data-grid').then(module => {
@@ -18,17 +17,18 @@ interface Row {
   [key: string]: string | number;
 }
 
-interface ParsedCsv{
+interface Parsed
+{
   rows: Row[];
   columns: Column[];
 }
 
 export interface QueryGridProps {
-  csvString :string;
+  jsonResult :string;
 }
 
-function parseCSV(csvString: any): any {
-  const rows = csvString.result.records.map((record: any) => {
+function parseJSON(jsonResult: any): any {
+  const rows = jsonResult.result.records.map((record: any) => {
     delete record.attributes;
     for(const property in record){
       if(typeof record[property] === 'object'){
@@ -46,25 +46,6 @@ function parseCSV(csvString: any): any {
   });
 
   return { columns, rows };
-
-  // if(!parsedCSV.data?.length){
-  //   return null;
-  // }
-
-  // // // Parse the headers to create the columns
-  // const headers: any = parsedCSV.data[0];
-  // const columns: Column[] = headers.map((headerName: string) => ({ key: headerName, name: headerName }));
-
-  // // // Parse the remaining lines to create the rows
-  // const rows: Row[] = parsedCSV.data.slice(1).map((line: any, index: any) => {
-  //   const row: Row = { id: index } as Row;
-  //   headers.forEach((header :any, i :any) => {
-  //     row[header] = line[i];
-  //   });
-  //   return row;
-  // });
-  // const result :ParsedCsv = { columns, rows };
-  // return result;
 }
 
 function removeQuotes(str: string) {
@@ -75,16 +56,20 @@ function removeQuotes(str: string) {
 }
 
 
-export const QueryGrid: React.FunctionComponent<QueryGridProps> = ({ csvString } :QueryGridProps) => {
+export const QueryGrid: React.FunctionComponent<QueryGridProps> = ({ jsonResult } :QueryGridProps) => {
   //Data grid is using dynamic import and may not be loaded
-  if(DataGrid === undefined || !csvString) return null;
+  if(DataGrid === undefined || !jsonResult) return null;
 
-  const parsedCsv = parseCSV(csvString);
-  if(!parsedCsv){
+  const parsed
+   = parseJSON(jsonResult);
+  if(!parsed
+    ){
     return null;
   }
-  const rows :Row[] = parsedCsv.rows;
-  const columns :Column[] = parsedCsv.columns;
+  const rows :Row[] = parsed
+  .rows;
+  const columns :Column[] = parsed
+  .columns;
 
   return (
     <>
