@@ -28,6 +28,11 @@ const customStyles = {
     background: inputBackgroundColor,
     color: 'white',
   }),
+  //search text color
+  input: (base: any, state: any) => ({
+    ...base,
+    color: 'white'
+  }),
   menu: (base: any, state: any) => ({
     ...base,
     color: 'white',

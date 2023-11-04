@@ -58,10 +58,12 @@ textarea{
 
 .select > *{
   background: var(--vscode-input-background);
+  margin-right: 2rem;
 }
 
 .select{
-  padding-bottom: 1rem;
+  width: -webkit-fill-available;
+
 }
 
 .loader {
@@ -105,4 +107,16 @@ button:hover {
   border-radius: 5px;
   font-weight: 700;
 
+}
+
+.org-selector-container{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.disabled{
+  pointer-events: none;
+  filter: grayscale(1);
 }
