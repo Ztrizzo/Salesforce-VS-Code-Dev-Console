@@ -63,6 +63,9 @@ export function activate(context: vscode.ExtensionContext) {
 			} else if (command === "OPEN_ORG"){
 				const { targetOrg } = payload;
 				await openTargetOrg(targetOrg);
+			} else if (command === "DOWNLOAD_QUERY_AS_CSV"){
+				const { targetOrg, query } = payload;
+				await queryOrgData.downloadQueryAsCSV(query, targetOrg);
 			}
 		}, undefined, context.subscriptions);
 

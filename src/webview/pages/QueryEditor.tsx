@@ -19,6 +19,21 @@ export const QueryEditor: React.FunctionComponent<QueryEditorProps> = ({ targetO
     setQuery(event.target.value);
   };
 
+  const downloadCsv = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    try{
+      setLoading(true);
+       await messageHandler.request<string>('DOWNLOAD_QUERY_AS_CSV', {
+        targetOrg: targetOrg,
+        query: query
+      });
+    } catch(error: any){
+      console.error(error);
+      setError(error);
+    } finally{
+      setLoading(false);
+    }
+  }
+
   const handleSubmit = async (event :React.MouseEvent<HTMLButtonElement>) => {
     setLoading(true);
     let queryResult;
@@ -50,6 +65,11 @@ export const QueryEditor: React.FunctionComponent<QueryEditorProps> = ({ targetO
         style={{alignSelf: 'end'}}
         onClick={handleSubmit}
       >Execute</button>
+
+      <button
+        style={{alignSelf: 'end', marginTop: '2rem'}}
+        onClick={downloadCsv}
+      >Export as CSV</button>
 
       {
         error
