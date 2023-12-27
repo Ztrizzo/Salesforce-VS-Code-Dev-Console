@@ -95,8 +95,6 @@ export const App: React.FunctionComponent<IAppProps> = ({ }: React.PropsWithChil
         <Tab label='Query'>
           <QueryEditor targetOrg={targetOrg}/>
         </Tab>
-        <Tab label='Tab 2'>Contents of Tab 2</Tab>
-        <Tab label='Tab 3'>Contents of Tab 3</Tab>
       </Tabset>
 
       {message && <p><strong>Message from the extension</strong>: {message}</p>}

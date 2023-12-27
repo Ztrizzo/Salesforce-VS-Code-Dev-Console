@@ -22,7 +22,7 @@ export const QueryEditor: React.FunctionComponent<QueryEditorProps> = ({ targetO
   const downloadCsv = async (event: React.MouseEvent<HTMLButtonElement>) => {
     try{
       setLoading(true);
-       await messageHandler.request<string>('DOWNLOAD_QUERY_AS_CSV', {
+      await messageHandler.request<string>('DOWNLOAD_QUERY_AS_CSV', {
         targetOrg: targetOrg,
         query: query
       });
